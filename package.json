@@ -1,0 +1,61 @@
+{
+	"name": "perilla-vscode",
+	"displayName": "perilla-vscode",
+	"description": "Perilla Client for VSCode",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.30.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"workspaceContains:perilla.config.json",
+		"onCommand:perillaVscode.enablePerilla"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "perillaVscode.enablePerilla",
+				"title": "Enable perilla"
+			},
+			{
+				"command": "perillaVscode.viewProblem",
+				"title": "View problem"
+			}
+		],
+		"configuration": {
+			"title": "Perilla-VSCode",
+			"properties": {
+				"perillaVscode.lightTheme": {
+					"type": "boolean",
+					"default": true
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "yarn run compile && node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"@types/mocha": "^2.2.42",
+		"@types/node": "^8.10.25",
+		"tslint": "^5.8.0",
+		"typescript": "^3.1.4",
+		"vscode": "^1.1.25"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"atob": "^2.1.2",
+		"axios": "^0.18.0",
+		"highlight.js": "^9.13.1",
+		"katex": "^0.10.0",
+		"path": "^0.12.7",
+		"zmark": "^0.0.3"
+	}
+}

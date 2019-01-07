@@ -1,0 +1,23 @@
+{
+	"extends": "tslint:recommended",
+	"rules": {
+		"no-string-throw": true,
+		"no-unused-expression": true,
+		"no-duplicate-variable": true,
+		"curly": true,
+		"class-name": true,
+		"semicolon": [
+			true,
+			"always"
+		],
+		"triple-equals": true,
+		"no-empty": false,
+		"one-variable-per-declaration": false,
+		"max-line-length": {
+			"options": [
+				65536
+			]
+		},
+	},
+	"defaultSeverity": "warning"
+}
