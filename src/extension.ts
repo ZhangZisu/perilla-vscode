@@ -1,5 +1,5 @@
 import { AxiosResponse, default as axios } from "axios";
-import { existsSync, writeFileSync } from "fs";
+import { existsSync, writeFileSync, readFileSync } from "fs";
 import { join } from "path";
 import * as vscode from "vscode";
 import atob = require("atob");
@@ -30,7 +30,7 @@ export async function activate(context: vscode.ExtensionContext) {
             try {
                 const configPath = join(vscode.workspace.rootPath, "perilla.config.json");
                 if (!existsSync(configPath)) { return; }
-                const { server, username } = require(configPath);
+                const { server, username } = JSON.parse(readFileSync(configPath).toString());
                 axios.defaults.baseURL = server;
                 try {
                     const { version } = parseResponse(await axios.get("/version"));
@@ -77,14 +77,14 @@ export async function activate(context: vscode.ExtensionContext) {
                     prompt: "Perilla server url",
                     value: server,
                 });
-                if (!server) { throw new Error("User cancle"); }
+                if (!server) { throw new Error("User cancel"); }
                 username = await vscode.window.showInputBox({
                     ignoreFocusOut: true,
                     placeHolder: "User",
                     prompt: "Perilla username",
                     value: username,
                 });
-                if (!username) { throw new Error("User cancle"); }
+                if (!username) { throw new Error("User cancel"); }
                 writeFileSync(configPath, JSON.stringify({ server, username }, null, "\t"));
                 vscode.window.showInformationMessage("Configuration have save to perilla.config.json");
                 await loadConfig();
